@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
     return (
         <footer className="my-6 md:my-8 bg-[#030317]">
             <div className="container mx-auto flex items-center justify-between">
-                <a href="/">
+                <Link to="/">
                     <img className="w-28" src="/assets/logo.svg" alt="lws" />
-                </a>
+                </Link>
                 <ul className="flex items-center space-x-5">
                     <li className="text-center">
                         <a
@@ -18,7 +20,7 @@ export default function Footer() {
                                 xmlSpace="preserve"
                                 xmlns="http://www.w3.org/2000/svg"
                                 xmlns:serif="http://www.serif.com/"
-                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                xmlnsXlink="http://www.w3.org/1999/xlink"
                                 fill="currentColor"
                             >
                                 <path
@@ -39,7 +41,7 @@ export default function Footer() {
                                 version="1.1"
                                 id="Layer_1"
                                 xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                xmlnsXlink="http://www.w3.org/1999/xlink"
                                 x="0px"
                                 y="0px"
                                 viewBox="0 0 56.7 56.7"
@@ -71,7 +73,7 @@ export default function Footer() {
                                 width="24"
                                 xmlSpace="preserve"
                                 xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                xmlnsXlink="http://www.w3.org/1999/xlink"
                                 fill="currentColor"
                             >
                                 <path
@@ -93,7 +95,7 @@ export default function Footer() {
                                 xmlSpace="preserve"
                                 xmlns="http://www.w3.org/2000/svg"
                                 xmlns:serif="http://www.serif.com/"
-                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                xmlnsXlink="http://www.w3.org/1999/xlink"
                                 fill="currentColor"
                             >
                                 <path
@@ -114,7 +116,7 @@ export default function Footer() {
                                 viewBox="0 0 512 512"
                                 xmlSpace="preserve"
                                 xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                xmlnsXlink="http://www.w3.org/1999/xlink"
                                 fill="currentColor"
                             >
                                 <path

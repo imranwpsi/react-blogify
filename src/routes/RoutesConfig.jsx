@@ -12,12 +12,12 @@ export default function RoutesConfig() {
     return (
         <Routes>
             <Route element={<PrivateRoutes />}>
-                <Route element={<HomePage />} path="/" exact />
                 <Route element={<ProfilePage />} path="/me" />
-                <Route element={<ProfilePage />} path="/author/:id" />
                 <Route element={<CreateBlogPage />} path="/create-blog" />
-                <Route element={<SingleBlogPage />} path="/blogs/:id" />
             </Route>
+            <Route element={<HomePage />} path="/" exact />
+            <Route element={<SingleBlogPage />} path="/blogs/:id" />
+            <Route element={<ProfilePage />} path="/author/:id" />
             <Route element={<LoginPage />} path="/login" />
             <Route element={<RegistrationPage />} path="/register" />
             <Route element={<NotFoundPage />} path="*" />

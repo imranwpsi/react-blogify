@@ -2,9 +2,13 @@ import { actions } from "../actions";
 
 const initialState = {
     blogs: [],
+    popularBlogs: [],
+    favouritesBlogs: [],
     blogDetails: {},
     loading: false,
     error: null,
+    page: 1,
+    hasMore: true,
 };
 
 const blogReducer = (state, action) => {
@@ -19,7 +23,25 @@ const blogReducer = (state, action) => {
         case actions.blog.DATA_FETCHED: {
             return {
                 ...state,
-                blogs: action.data.blogs,
+                blogs: [...state.blogs, ...action.data],
+                loading: false,
+                page: action.data.length === 0 ? state.page : state.page + 1,
+                hasMore: action.data.length === 0 ? false : true,
+            };
+        }
+
+        case actions.blog.POPULAR_DATA_FETCHED: {
+            return {
+                ...state,
+                popularBlogs: action.data,
+                loading: false,
+            };
+        }
+
+        case actions.blog.FAVOURITES_DATA_FETCHED: {
+            return {
+                ...state,
+                favouritesBlogs: action.data,
                 loading: false,
             };
         }

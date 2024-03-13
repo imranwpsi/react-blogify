@@ -3,6 +3,7 @@ import { actions } from "../actions";
 const initialState = {
     user: null,
     blogs: [],
+    author: null,
     loading: false,
     error: null,
 };
@@ -21,6 +22,15 @@ const profileReducer = (state, action) => {
                 ...state,
                 loading: false,
                 user: action.data,
+                blogs: action.data.blogs,
+            };
+        }
+
+        case actions.profile.AUTHOR_DATA_FETCHED: {
+            return {
+                ...state,
+                loading: false,
+                author: action.data,
                 blogs: action.data.blogs,
             };
         }
@@ -49,6 +59,14 @@ const profileReducer = (state, action) => {
                     ...state.user,
                     avatar: action.data.avatar,
                 },
+            };
+        }
+
+        case actions.blog.BLOG_DELETED: {
+            return {
+                ...state,
+                loading: false,
+                blogs: state.blogs.filter((item) => item.id !== action.data),
             };
         }
 

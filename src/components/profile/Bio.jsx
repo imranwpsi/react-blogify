@@ -4,12 +4,15 @@ import useAxios from "../../hooks/useAxios";
 import { useCurrentUserInfo } from "../../hooks/useCurrentUserInfo";
 import { useProfile } from "../../hooks/useProfile";
 
-const Bio = () => {
+const Bio = ({ isMe }) => {
     const userInfo = useCurrentUserInfo();
     const { dispatch } = useProfile();
     const { api } = useAxios();
+    const { state } = useProfile();
 
-    const [bio, setBio] = useState(userInfo.bio);
+    const userBio = isMe ? userInfo?.bio : state.author?.bio;
+
+    const [bio, setBio] = useState(userBio);
     const [editMode, setEditMode] = useState(false);
 
     const handleBioEdit = async () => {
@@ -41,7 +44,7 @@ const Bio = () => {
             <div className="flex-1">
                 {!editMode ? (
                     <p className="leading-[188%] text-gray-400 lg:text-lg">
-                        {userInfo.bio}
+                        {userBio}
                     </p>
                 ) : (
                     <textarea
@@ -54,6 +57,7 @@ const Bio = () => {
                 )}
             </div>
             {!editMode ? (
+                isMe &&
                 <button
                     className="flex-center h-7 w-7 rounded-full"
                     onClick={() => setEditMode(true)}
@@ -65,7 +69,7 @@ const Bio = () => {
                     className="flex-center h-7 w-7 rounded-full"
                     onClick={handleBioEdit}
                 >
-                        <img src="/assets/icons/check.svg" alt="Check" />
+                    <img src="/assets/icons/check.svg" alt="Check" />
                 </button>
             )}
         </div>

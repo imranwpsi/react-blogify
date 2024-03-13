@@ -51,7 +51,7 @@ export default function Header() {
                         <li>
                             {
                                 auth.authToken ? 
-                                    <a href="javascript:void(0)" onClick={handleLogout} className="text-white/50 hover:text-white transition-all duration-200">Logout</a> 
+                                    <div onClick={handleLogout} className="text-white/50 hover:text-white transition-all duration-200 cursor-pointer">Logout</div> 
                                 :
                                     <Link to="/login" className="text-white/50 hover:text-white transition-all duration-200">Login</Link>
                             }

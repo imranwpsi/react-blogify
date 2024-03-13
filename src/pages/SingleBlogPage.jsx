@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { actions } from "../actions";
 import useAxios from "../hooks/useAxios";
 import { useBlog } from "../hooks/useBlog";
@@ -10,7 +10,7 @@ export default function SingleBlogPage() {
     const { api } = useAxios();
     const { id } = useParams();
 
-    const { blogDetails, loading, error } = blogState;
+    const { blogDetails, loading } = blogState;
     const { fullName = '', authorSrc = null } = getAuthorInfo(blogDetails.author);
     let tagsArr = [];
     if (blogDetails?.tags) {
@@ -47,24 +47,23 @@ export default function SingleBlogPage() {
         return <div> We are working...</div>;
     }
 
-    if (error) {
-        return <div> Error in fetching blog details {error?.message}</div>;
-    }
-
     return (
+        <>
         <main>
             {/* <!-- Begin Blogs --> */}
             <section>
                 <div className="container text-center py-8">
                     <h1 className="font-bold text-3xl md:text-5xl">{blogDetails.title}</h1>
                     <div className="flex justify-center items-center my-4 gap-4">
-                        <div className="flex items-center capitalize space-x-2">
-                            <div className="avater-img">
-                                <img src={authorSrc} className="rounded-full" />
-                            </div>
+                        <Link to={`/author/${blogDetails?.author?.id}`}>
+                            <div className="flex items-center capitalize space-x-2">
+                                <div className="avater-img">
+                                    <img src={authorSrc} className="rounded-full" />
+                                </div>
 
-                            <h5 className="text-slate-500 text-sm">{fullName}</h5>
-                        </div>
+                                <h5 className="text-slate-500 text-sm">{fullName}</h5>
+                            </div>
+                        </Link>
                         <span className="text-sm text-slate-700 dot">{getFormatDate(blogDetails.createdAt)}</span>
                         <span className="text-sm text-slate-700 dot">{blogDetails?.likes?.length} Likes</span>
                     </div>
@@ -127,43 +126,37 @@ export default function SingleBlogPage() {
                         </div>
                     </div>
 
-                    {/* <!-- Comment Two --> */}
-                    <div className="flex items-start space-x-4 my-8">
-                        <div className="avater-img bg-green-600 text-white">
-                            <span className="">S</span>
-                        </div>
-                        <div className="w-full">
-                            <h5 className="text-slate -500 font-bold">Saad Hasan</h5>
-                            <p className="text-slate-300">
-                                Today I was mob programming with Square's Mobile & Performance Reliability team and we toyed with an
-                                interesting idea. Our codebase has classes that represent screens a user can navigate to. These classes
-                                are defined in modules, and these modules have an owner team defined. When navigating to a screen, we
-                                wanted to have the owner team information available, at runtime. We created a build tool that looks at
-                                about 1000 Screen classes, determines the owner team, and generates a class to do the lookup at runtime.
-                                The generated code looked like this:
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* <!-- Comment Three --> */}
-                    <div className="flex items-start space-x-4 my-8">
-                        <div className="avater-img bg-indigo-600 text-white">
-                            <span className="">S</span>
-                        </div>
-                        <div className="w-full">
-                            <h5 className="text-slate -500 font-bold">Saad Hasan</h5>
-                            <p className="text-slate-300">
-                                Today I was mob programming with Square's Mobile & Performance Reliability team and we toyed with an
-                                interesting idea. Our codebase has classes that represent screens a user can navigate to. These classes
-                                are defined in modules, and these modules have an owner team defined. When navigating to a screen, we
-                                wanted to have the owner team information available, at runtime. We created a build tool that looks at
-                                about 1000 Screen classes, determines the owner team, and generates a class to do the lookup at runtime.
-                                The generated code looked like this:
-                            </p>
-                        </div>
-                    </div>
                 </div>
             </section>
         </main>
+
+        {/* <!-- Floating Actions--> */}
+        <div className="floating-action">
+            <ul className="floating-action-menus">
+                <li>
+                    <img src="/assets/icons/like.svg" alt="like" />
+                    <span>{blogDetails.likes.length}</span>
+                </li>
+
+                <li>
+                    {/* <!-- There is heart-filled.svg in the icons folder --> */}
+                    {
+                        blogDetails.isFavourite ?
+                            <img src="/assets/icons/heart-filled.svg" alt="Favourite" />
+                            :
+                            <img src="/assets/icons/heart.svg" alt="Favourite" />
+
+                    }
+                    
+                </li>
+                <a href="#comments">
+                    <li>
+                        <img src="/assets/icons/comment.svg" alt="Comments" />
+                        <span>{blogDetails.comments.length}</span>
+                    </li>
+                </a>
+            </ul>
+        </div>
+        </>
     )
 }

@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { actions } from "../../actions";
+import { api } from "../../api";
 import { useAuth } from "../../hooks/useAuth";
+import { useBlog } from "../../hooks/useBlog";
+import { useProfile } from "../../hooks/useProfile";
 import { getAuthorInfo, getFormatDate, truncateText } from "../../utils";
 
-export default function BlogCard({ blog }) {
+export default function BlogCard({ blog, isProfileBlogs }) {
     const [showAction, setShowAction] = useState(false);
+    const { dispatch } = useBlog();
+    const { dispatch: profileDispatch } = useProfile();
     const { auth } = useAuth();
 
     const isMe = blog?.author?.id == auth?.user?.id;
@@ -13,6 +20,38 @@ export default function BlogCard({ blog }) {
     function toggleAction() {
         setShowAction(!showAction);
     }
+
+    const handleDelete = async () => {
+        dispatch({ type: actions.blog.DATA_FETCHING });
+
+        try {
+            const response = await api.delete(
+                `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/${blog.id}`
+            );
+
+            if (response.status === 200) {
+                if (isProfileBlogs) {
+                    profileDispatch({
+                        type: actions.profile.BLOG_DELETED,
+                        data: blog.id,
+                    });
+                }
+                else {
+                    dispatch({
+                        type: actions.blog.BLOG_DELETED,
+                        data: blog.id,
+                    });
+                }
+                toast.success('Blog has been deleted successfully!');
+            }
+        } catch (error) {
+            console.error(error);
+            dispatch({
+                type: actions.blog.DATA_FETCH_ERROR,
+                error,
+            });
+        }
+    };
 
     return (
         <div className="blog-card">
@@ -45,7 +84,7 @@ export default function BlogCard({ blog }) {
                                     <h5
                                         className="text-slate-500 text-sm"
                                     >
-                                        <a href="./profile.html">{fullName}</a>
+                                        {fullName}
                                     </h5>
                                     <div
                                         className="flex items-center text-xs text-slate-700"
@@ -89,6 +128,7 @@ export default function BlogCard({ blog }) {
                             </button>
                             <button
                                 className="action-menu-item hover:text-red-500"
+                                onClick={handleDelete}
                             >
                                 <img
                                     src="/assets/icons/delete.svg"
