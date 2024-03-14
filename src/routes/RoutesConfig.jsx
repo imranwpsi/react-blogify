@@ -18,6 +18,7 @@ export default function RoutesConfig() {
                 <Route element={<UpdateBlogPage />} path="/blog/:id" />
             </Route>
             <Route element={<HomePage />} path="/" exact />
+            <Route element={<HomePage />} path="/:id" />
             <Route element={<SingleBlogPage />} path="/blogs/:id" />
             <Route element={<ProfilePage />} path="/author/:id" />
             <Route element={<LoginPage />} path="/login" />

@@ -37,8 +37,8 @@ export default function Header() {
                             </Link>
                         </li>
                         <li>
-                            <a
-                                href="./search.html"
+                            <Link
+                                to="/search"
                                 className="flex items-center gap-2 cursor-pointer"
                             >
                                 <img
@@ -46,7 +46,7 @@ export default function Header() {
                                     alt="Search"
                                 />
                                 <span>Search</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             {
