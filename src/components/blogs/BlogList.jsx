@@ -66,7 +66,7 @@ export default function BlogList({ isProfileBlogs = false }) {
     return (
         <>
             {
-                blogList && blogList.map((blog) => <BlogCard key={blog.id} blog={blog} isProfileBlogs={isProfileBlogs} />)
+                blogList && blogList.map((blog) => <BlogCard key={blog?.id} blog={blog} isProfileBlogs={isProfileBlogs} />)
             }
 
             {blogList.length === 0 && <h2 className="text-center text-xl mt-2 p-6"> 🙁 No blogs found 🙁</h2>}

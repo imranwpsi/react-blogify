@@ -33,13 +33,13 @@ const ProfileImage = ({ isMe }) => {
             }
 
             const response = await api.post(
-                `${import.meta.env.VITE_SERVER_BASE_URL}/profile/${userInfo.id}/avatar`,
+                `${import.meta.env.VITE_SERVER_BASE_URL}/profile/avatar`,
                 formData
             );
             if (response.status === 200) {
                 dispatch({
                     type: actions.profile.IMAGE_UPDATED,
-                    data: response.data,
+                    data: response.data.user,
                 });
             }
         } catch (error) {

@@ -24,3 +24,15 @@ export const truncateText = (text, maxLength) => {
         }
     }
 };
+
+export const getIsLike = (likes, auth) => {
+    let isLike = false;
+    if (likes?.length > 0) {
+        likes.forEach(like => {
+            if (like.id == auth.user.id) {
+                isLike = true;
+            }
+        });
+    }
+    return isLike;
+}

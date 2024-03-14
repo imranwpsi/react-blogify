@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { actions } from "../../actions";
 import { api } from "../../api";
@@ -9,6 +9,7 @@ import { useProfile } from "../../hooks/useProfile";
 import { getAuthorInfo, getFormatDate, truncateText } from "../../utils";
 
 export default function BlogCard({ blog, isProfileBlogs }) {
+    const navigate = useNavigate();
     const [showAction, setShowAction] = useState(false);
     const { dispatch } = useBlog();
     const { dispatch: profileDispatch } = useProfile();
@@ -52,6 +53,10 @@ export default function BlogCard({ blog, isProfileBlogs }) {
             });
         }
     };
+
+    const handleEdit = () => {
+        navigate(`/blog/${blog.id}`);
+    }
 
     return (
         <div className="blog-card">
@@ -119,6 +124,7 @@ export default function BlogCard({ blog, isProfileBlogs }) {
                         <div className="action-modal-container">
                             <button
                                 className="action-menu-item hover:text-lwsGreen"
+                                onClick={handleEdit}
                             >
                                 <img
                                     src="/assets/icons/edit.svg"

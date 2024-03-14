@@ -28,7 +28,7 @@ export default function LoginPage() {
           console.log(`Login time auth token: ${authToken}`);
           setAuth({ user, authToken, refreshToken });
 
-          navigate("/");
+          navigate("/me");
         }
       }
     } catch (error) {

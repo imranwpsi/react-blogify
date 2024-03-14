@@ -6,6 +6,7 @@ import NotFoundPage from '../pages/NotFoundPage';
 import ProfilePage from '../pages/ProfilePage';
 import RegistrationPage from '../pages/RegistrationPage';
 import SingleBlogPage from '../pages/SingleBlogPage';
+import UpdateBlogPage from '../pages/UpdateBlogPage';
 import PrivateRoutes from './PrivateRoutes';
 
 export default function RoutesConfig() {
@@ -14,6 +15,7 @@ export default function RoutesConfig() {
             <Route element={<PrivateRoutes />}>
                 <Route element={<ProfilePage />} path="/me" />
                 <Route element={<CreateBlogPage />} path="/create-blog" />
+                <Route element={<UpdateBlogPage />} path="/blog/:id" />
             </Route>
             <Route element={<HomePage />} path="/" exact />
             <Route element={<SingleBlogPage />} path="/blogs/:id" />
